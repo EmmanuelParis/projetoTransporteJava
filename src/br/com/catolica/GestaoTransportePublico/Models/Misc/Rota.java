@@ -1,9 +1,10 @@
 package br.com.catolica.GestaoTransportePublico.Models.Misc;
 
+import br.com.catolica.GestaoTransportePublico.Contracts.IRotaInterface;
 import br.com.catolica.GestaoTransportePublico.Models.Pessoas.Motorista;
 import br.com.catolica.GestaoTransportePublico.Models.Veiculos.Veiculo;
 
-public class Rota {
+public class Rota implements IRotaInterface {
 
     private String origem;
     private String destino;
