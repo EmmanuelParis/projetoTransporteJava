@@ -9,7 +9,6 @@ public class Bilhete {
     private double valorPago;
     private EnumStatusBilhete status;
 
-    // Construtor
     public Bilhete(String origem, String destino, double valorPago) {
         this.origem = origem;
         this.destino = destino;
@@ -17,7 +16,6 @@ public class Bilhete {
         this.status = EnumStatusBilhete.ATIVO;
     }
 
-    // Getters e Setters
     public String getOrigem() {
         return origem;
     }
