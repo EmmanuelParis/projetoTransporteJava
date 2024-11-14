@@ -1,5 +1,6 @@
 package br.com.catolica.GestaoTransportePublico.Models.Misc;
 
+import br.com.catolica.GestaoTransportePublico.Models.Pessoas.Motorista;
 import br.com.catolica.GestaoTransportePublico.Models.Veiculos.Veiculo;
 
 public class Rota {
@@ -7,11 +8,13 @@ public class Rota {
     private String origem;
     private String destino;
     private Veiculo veiculo;
+    private Motorista motorista;
 
     public Rota(String origem, String destino, Veiculo veiculo) {
         this.origem = origem;
         this.destino = destino;
         this.veiculo = veiculo;
+        this.motorista = null;
     }
 
     public String getOrigem() {
@@ -26,9 +29,19 @@ public class Rota {
         return veiculo;
     }
 
-    public void exibirRota() {
-        System.out.println(String.format("Rota: %s -> %s ", origem ,destino));
-        veiculo.exibirInformacoes();
+    public Motorista getMotorista() {
+        return motorista;
     }
 
+    public void atribuirMotorista(Motorista motorista) {
+        this.motorista = motorista;
+    }
+
+    public void exibirRota() {
+        System.out.println("Origem: " + origem);
+        System.out.println("Destino: " + destino);
+        System.out.println("Veículo: " + veiculo.getClass().getSimpleName());
+        System.out.println("Motorista: " + (motorista != null ? motorista.getNome() : "Não atribuído"));
+        System.out.println("-----------------------------");
+    }
 }

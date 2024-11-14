@@ -1,17 +1,18 @@
 package br.com.catolica.GestaoTransportePublico.Main;
 
+import br.com.catolica.GestaoTransportePublico.Models.Pessoas.Pessoa;
 import br.com.catolica.GestaoTransportePublico.Service.SistemaAutenticacao;
 
 import java.util.Scanner;
 
-public class Main {
+import static br.com.catolica.GestaoTransportePublico.Models.Misc.Menus.*;
 
+public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        boolean autenticado = false;
 
-        boolean logado = false;
-
-        while (!logado ) {
+        while (true) {
             System.out.println("\n---AUTENTICAÇÃO---");
             System.out.println("[1] - Login");
             System.out.println("[2] - Cadastro");
@@ -19,9 +20,14 @@ public class Main {
             System.out.print("Opção: ");
             int opcao = scanner.nextInt();
             scanner.nextLine();
+
             switch (opcao) {
                 case 1:
-                    SistemaAutenticacao.realizarLogin();
+                    autenticado = SistemaAutenticacao.realizarLogin();
+                    if (autenticado) {
+                        Pessoa usuarioLogado = SistemaAutenticacao.getUsuarioLogado();
+                        mostrarMenuUsuario(usuarioLogado);
+                    }
                     break;
                 case 2:
                     SistemaAutenticacao.realizarCadastro();
@@ -33,7 +39,5 @@ public class Main {
                     System.out.println("Opção Inválida, tente novamente!");
             }
         }
-
-
     }
 }

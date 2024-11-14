@@ -1,14 +1,13 @@
 package br.com.catolica.GestaoTransportePublico.Enums;
 
-public enum EnumTurno {
-
-    MANHA("Manhã"),
-    TARDE("Tarde"),
-    NOITE("Noite");
+public enum EnumStatusBilhete {
+    ATIVO("Ativo"),
+    UTILIZADO("Utilizado"),
+    CANCELADO("Cancelado");
 
     private String descricao;
 
-    EnumTurno(String descricao) {
+    EnumStatusBilhete(String descricao) {
         this.descricao = descricao;
     }
 

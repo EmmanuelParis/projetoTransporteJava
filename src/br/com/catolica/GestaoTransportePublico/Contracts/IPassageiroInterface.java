@@ -2,8 +2,7 @@ package br.com.catolica.GestaoTransportePublico.Contracts;
 
 public interface IPassageiroInterface {
 
-    void comprarPassagem(int quantidade);
+    void comprarBilhete(String origem, String destino, double valorPago);
 
-    void embarcar();
-
+    void exibirBilhetes();
 }

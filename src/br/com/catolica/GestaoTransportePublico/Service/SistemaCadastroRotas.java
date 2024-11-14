@@ -3,6 +3,7 @@ package br.com.catolica.GestaoTransportePublico.Service;
 import br.com.catolica.GestaoTransportePublico.Enums.EnumQualidadeDoVeiculo;
 import br.com.catolica.GestaoTransportePublico.Models.Misc.Rota;
 import br.com.catolica.GestaoTransportePublico.Models.Pessoas.Gerente;
+import br.com.catolica.GestaoTransportePublico.Models.Pessoas.Motorista;
 import br.com.catolica.GestaoTransportePublico.Models.Veiculos.Metro;
 import br.com.catolica.GestaoTransportePublico.Models.Veiculos.Onibus;
 import br.com.catolica.GestaoTransportePublico.Models.Veiculos.Trem;
@@ -18,11 +19,6 @@ public class SistemaCadastroRotas {
     public static void cadastrarRota(Gerente gerente) {
         if (numRotas >= rotasCadastradas.length) {
             System.out.println("Limite de rotas cadastradas atingido.");
-            return;
-        }
-
-        if (gerente == null) {
-            System.out.println("Somente um Gerente pode cadastrar rotas.");
             return;
         }
 
@@ -89,7 +85,80 @@ public class SistemaCadastroRotas {
         numRotas++;
 
         System.out.println("\nRota cadastrada com sucesso!");
-        rota.exibirRota();
+    }
+
+    public static void exibirRotas() {
+        if (numRotas == 0) {
+            System.out.println("Nenhuma rota cadastrada.");
+            return;
+        }
+
+        System.out.println("\n--- ROTAS CADASTRADAS ---");
+        for (int i = 0; i < numRotas; i++) {
+            rotasCadastradas[i].exibirRota();
+        }
+    }
+
+    public static void exibirRotasSemMotorista() {
+        System.out.println("\n---ROTAS DISPONÍVEIS PARA DIRIGIR---");
+        for (int i = 0; i < numRotas; i++) {
+            if (rotasCadastradas[i].getMotorista() == null) {
+                System.out.println("Rota " + (i + 1) + ": " + rotasCadastradas[i].getOrigem() + " -> " + rotasCadastradas[i].getDestino());
+            }
+        }
+    }
+
+    public static void escolherRota(Motorista motorista) {
+        Scanner scanner = new Scanner(System.in);
+
+        exibirRotasSemMotorista();
+
+        System.out.print("Escolha o número da rota que deseja dirigir (ou 0 para voltar): ");
+        int escolha = scanner.nextInt();
+        scanner.nextLine();
+
+        if (escolha > 0 && escolha <= numRotas) {
+            Rota rotaEscolhida = rotasCadastradas[escolha - 1];
+            if (rotaEscolhida.getMotorista() == null) {
+                rotaEscolhida.atribuirMotorista(motorista);
+                System.out.println("Você agora é o motorista desta rota!");
+                rotaEscolhida.exibirRota();
+            } else {
+                System.out.println("Essa rota já tem um motorista.");
+            }
+        } else {
+            System.out.println("Opção inválida ou rota inexistente.");
+        }
+    }
+
+    public static Rota[] getRotasCadastradas() {
+        return rotasCadastradas;
+    }
+
+
+    public static void exibirRotacomId() {
+        System.out.println("Rotas disponíveis:");
+        for (int i = 0; i < numRotas; i++) {
+            if (rotasCadastradas[i] != null) {
+                System.out.println("ID: " + i);
+                rotasCadastradas[i].exibirRota();
+            }
+        }
+    }
+
+    public static void removerRota(int id) {
+        if (id < 0 || id >= numRotas || rotasCadastradas[id] == null) {
+            System.out.println("ID de rota inválido.");
+            return;
+        }
+
+        for (int i = id; i < numRotas - 1; i++) {
+            rotasCadastradas[i] = rotasCadastradas[i + 1];
+        }
+
+        rotasCadastradas[--numRotas] = null;
+        System.out.println("Rota removida com sucesso.");
     }
 }
+
 

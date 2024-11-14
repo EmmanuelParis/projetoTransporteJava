@@ -1,11 +1,12 @@
 package br.com.catolica.GestaoTransportePublico.Models.Veiculos;
 
+import br.com.catolica.GestaoTransportePublico.Contracts.IVeiculoInterface;
 import br.com.catolica.GestaoTransportePublico.Enums.EnumQualidadeDoVeiculo;
 import br.com.catolica.GestaoTransportePublico.Enums.EnumTipoDeVeiculo;
 
 import java.util.Scanner;
 
-public abstract class Veiculo {
+public abstract class Veiculo implements IVeiculoInterface {
 
     Scanner scanner = new Scanner(System.in);
 

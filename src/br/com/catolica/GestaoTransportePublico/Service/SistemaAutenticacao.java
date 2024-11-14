@@ -11,6 +11,7 @@ public class SistemaAutenticacao {
 
     private static Pessoa[] usuariosCadastrados = new Pessoa[15];
     private static int numUsuarios = 0;
+    private static Pessoa usuarioLogado = null;
 
     public static void realizarCadastro() {
         if (numUsuarios >= usuariosCadastrados.length) {
@@ -62,7 +63,8 @@ public class SistemaAutenticacao {
         pessoa.exibirCadastro();
     }
 
-    public static void realizarLogin() {
+
+    public static boolean realizarLogin() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("\n---LOGIN---");
@@ -72,17 +74,25 @@ public class SistemaAutenticacao {
         System.out.print("Digite sua senha: ");
         String senha = scanner.nextLine();
 
-        boolean loginValido = false;
         for (int i = 0; i < numUsuarios; i++) {
             if (usuariosCadastrados[i].getCpf().equals(cpf) && usuariosCadastrados[i].getSenha().equals(senha)) {
-                loginValido = true;
+                usuarioLogado = usuariosCadastrados[i];
                 System.out.println("Login bem-sucedido! Bem-vindo, " + usuariosCadastrados[i].getNome());
-                break;
+                return true;
             }
         }
 
-        if (!loginValido) {
-            System.out.println("CPF ou senha inválidos.");
-        }
+        System.out.println("CPF ou senha inválidos.");
+        return false;
+    }
+
+    public static Pessoa getUsuarioLogado() {
+        return usuarioLogado;
+    }
+
+    public static void realizarLogout() {
+        usuarioLogado = null;
+        System.out.println("Logout realizado com sucesso.");
     }
 }
+

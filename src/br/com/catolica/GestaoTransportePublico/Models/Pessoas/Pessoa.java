@@ -17,8 +17,6 @@ public abstract class Pessoa {
         return nome;
     }
 
-    public int getIdade() { return idade; }
-
     public String getCpf() {
         return cpf;
     }
